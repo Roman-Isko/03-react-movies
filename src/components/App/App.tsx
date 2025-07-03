@@ -4,7 +4,7 @@ import MovieGrid from "../MovieGrid/MovieGrid";
 import MovieModal from "../MovieModal/MovieModal";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import { Movie } from "../../types/movie";
+import type { Movie } from "../../types/movie";
 import { searchMovies, getMovieDetails } from "../../services/api";
 import styles from "./App.module.css";
 
