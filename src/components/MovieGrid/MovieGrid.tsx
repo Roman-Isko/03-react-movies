@@ -1,33 +1,34 @@
-import type { Movie } from "../../types/movie";
 import styles from "./MovieGrid.module.css";
+import type { Movie } from "../../types/movie";
 
 interface MovieGridProps {
   movies: Movie[];
-  onMovieClick: (id: number) => void;
+  onSelect: (id: number) => void;
 }
 
-const MovieGrid = ({ movies, onMovieClick }: MovieGridProps) => {
+const MovieGrid = ({ movies, onSelect }: MovieGridProps) => {
+  if (movies.length === 0) return null;
+
   return (
-    <div className={styles.grid}>
-      {movies.map((movie) => (
-        <div
-          key={movie.id}
-          className={styles.card}
-          onClick={() => onMovieClick(movie.id)}
-        >
-          {movie.poster_path ? (
+    <ul className={styles.grid}>
+      {movies.map(({ id, poster_path, title }) => (
+        <li key={id} onClick={() => onSelect(id)}>
+          <div className={styles.card}>
             <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              className={styles.poster}
+              className={styles.image}
+              src={
+                poster_path
+                  ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                  : "https://via.placeholder.com/500x750?text=No+Image"
+              }
+              alt={title}
+              loading="lazy"
             />
-          ) : (
-            <div className={styles.noImage}>No image</div>
-          )}
-          <p className={styles.title}>{movie.title}</p>
-        </div>
+            <h2 className={styles.title}>{title}</h2>
+          </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

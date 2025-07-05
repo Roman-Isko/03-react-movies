@@ -1,7 +1,7 @@
 import styles from "./Loader.module.css";
 
 const Loader = () => {
-  return <div className={styles.loader}>Loading...</div>;
+  return <p className={styles.text}>Loading movies, please wait...</p>;
 };
 
 export default Loader;
