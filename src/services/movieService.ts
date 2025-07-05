@@ -39,6 +39,8 @@ export const fetchMovieById = async (id: number): Promise<Movie> => {
   return response.data;
 };
 
+console.log("TOKEN:", import.meta.env.VITE_TMDB_TOKEN);
+
 // import axios, { AxiosResponse } from "axios";
 // import type { Movie } from "../types/movie";
 
