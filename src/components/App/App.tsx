@@ -5,7 +5,7 @@ import MovieModal from "../MovieModal/MovieModal";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import type { Movie } from "../../types/movie";
-import { searchMovies, getMovieDetails } from "../../services/api";
+import { fetchMovies, fetchMovieById } from "../../services/movieService";
 import styles from "./App.module.css";
 
 const App = () => {
@@ -18,8 +18,10 @@ const App = () => {
     setLoading(true);
     setError("");
     try {
-      const results = await searchMovies(query);
-      if (results.length === 0) setError("No movies found");
+      const results = await fetchMovies(query);
+      if (results.length === 0) {
+        setError("No movies found");
+      }
       setMovies(results);
     } catch {
       setError("Something went wrong");
@@ -31,7 +33,7 @@ const App = () => {
   const openMovieModal = async (id: number) => {
     setLoading(true);
     try {
-      const movie = await getMovieDetails(id);
+      const movie = await fetchMovieById(id);
       setSelectedMovie(movie);
     } catch {
       setError("Failed to load movie details");
@@ -65,7 +67,7 @@ export default App;
 // import MovieModal from "../MovieModal/MovieModal";
 // import Loader from "../Loader/Loader";
 // import ErrorMessage from "../ErrorMessage/ErrorMessage";
-// import { Movie } from "../../types/movie";
+// import type { Movie } from "../../types/movie";
 // import { searchMovies, getMovieDetails } from "../../services/api";
 // import styles from "./App.module.css";
 
@@ -82,7 +84,7 @@ export default App;
 //       const results = await searchMovies(query);
 //       if (results.length === 0) setError("No movies found");
 //       setMovies(results);
-//     } catch (e) {
+//     } catch {
 //       setError("Something went wrong");
 //     } finally {
 //       setLoading(false);
